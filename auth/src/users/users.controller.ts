@@ -28,7 +28,6 @@ export class UsersController {
     @Param('id') id: string,
     @Request() req: RequestWithValidatedUser,
   ): Promise<User> {
-    if (req.user.userId === +id) return this.usersService.remove(+id);
-    else throw new ForbiddenException('Can only remove own account');
+    return this.usersService.remove(+id, req.user.userId);
   }
 }
