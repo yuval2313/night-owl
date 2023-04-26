@@ -1,19 +1,19 @@
-import { BaseEntity } from 'src/users/models/base.entity';
+import { BaseEntity } from './base.entity';
 import { Column, Entity, BeforeInsert } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { hash, compare } from 'bcrypt';
 
-@Entity()
-export class Users extends BaseEntity {
+@Entity('users')
+export class User extends BaseEntity {
   @Column({ unique: true })
   username: string;
 
-  // @Exclude()
-  // @Column({ select: false })
   @Column()
+  @Exclude()
   password: string;
 
   @BeforeInsert()
-  async hashPassword() {
+  async hashPassword(): Promise<void> {
     this.password = await hash(this.password, 10);
   }
 
