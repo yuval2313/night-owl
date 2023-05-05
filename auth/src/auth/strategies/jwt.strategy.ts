@@ -5,8 +5,6 @@ import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from '../interfaces/token-payload.interface';
 import { TokenValidatedUser } from '../interfaces/token-validated-user.interface';
 import { Request } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
-import { ParsedQs } from 'qs';
 
 const configService = new ConfigService();
 const secret = configService.get('JWT_SECRET');

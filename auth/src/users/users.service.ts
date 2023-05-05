@@ -74,8 +74,6 @@ export class UsersService {
       const user = await this.findOneById(id);
       const removedUser = await this.usersRepository.softRemove(user);
 
-      // TODO: should i check if user is successfully removed? If so what error to throw?
-
       this.logger.log('Successfully removed user by id');
       return removedUser;
     } else {

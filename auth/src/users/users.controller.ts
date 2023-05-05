@@ -5,7 +5,6 @@ import {
   Request,
   Param,
   UseGuards,
-  ForbiddenException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';

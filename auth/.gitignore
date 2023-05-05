@@ -1,4 +1,4 @@
-# compiled output
+# Compiled output
 /dist
 /node_modules
 
@@ -37,3 +37,4 @@ lerna-debug.log*
 # Setup 
 /scripts
 .env
+!.env.example

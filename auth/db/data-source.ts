@@ -12,7 +12,7 @@ export const dataSourceOptions: DataSourceOptions = {
   port: configService.get('POSTGRES_PORT'),
   username: configService.get('POSTGRES_USER'),
   password: configService.get('POSTGRES_PASSWORD'),
-  database: configService.get('POSTGRES_DATABASE'),
+  database: configService.get('POSTGRES_DB'),
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/db/migrations/*.js'],
 };
