@@ -3,10 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/models/users.entity';
 import { LoginDto } from './req-dtos/login.dto';
-import { CreateUserDto } from './req-dtos/create-user.dto';
 import { TokenResponseDto } from './res-dtos/token-response.dto';
 import { TokenPayload } from './interfaces/token-payload.interface';
-import { RegistrationResponse } from './interfaces/registration-result.interface';
 
 @Injectable()
 export class AuthService {
@@ -16,15 +14,6 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
-
-  async register(createUserDto: CreateUserDto): Promise<RegistrationResponse> {
-    this.logger.log('Registering user');
-    const user = await this.usersService.createUser(createUserDto);
-    const { access_token } = await this.login(user);
-
-    this.logger.log('Successfully registered user');
-    return { user, access_token };
-  }
 
   async validateUser(loginDto: LoginDto): Promise<User> {
     this.logger.log('Validating user credentials');

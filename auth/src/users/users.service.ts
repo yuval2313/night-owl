@@ -5,7 +5,7 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from '../auth/req-dtos/create-user.dto';
+import { CreateUserDto } from './req-dtos/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './models/users.entity';
@@ -58,11 +58,7 @@ export class UsersService {
     this.logger.log('Retrieving user by username');
     const user = await this.usersRepository.findOneBy({ username });
 
-    if (!user) {
-      const errMsg = 'Failed to find user';
-      this.logger.error(errMsg);
-      throw new NotFoundException(errMsg);
-    }
+    if (!user) this.logger.error('Failed to find user with given username');
 
     this.logger.log('Successfully retrieved user');
     return user;
