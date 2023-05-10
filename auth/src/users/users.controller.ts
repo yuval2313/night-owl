@@ -35,6 +35,6 @@ export class UsersController {
     @Param('id') id: string,
     @Request() req: RequestWithValidatedUser,
   ): Promise<User> {
-    return this.usersService.remove(+id, req.user.userId);
+    return this.usersService.removeOneById(+id, req.user.userId);
   }
 }

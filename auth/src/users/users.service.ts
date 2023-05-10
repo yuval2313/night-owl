@@ -1,81 +1,71 @@
-import {
-  ConflictException,
-  ForbiddenException,
-  Injectable,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { PinoLogger, InjectPinoLogger } from 'nestjs-pino';
 import { CreateUserDto } from './req-dtos/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './models/users.entity';
 import { PostgresErrorCode } from '../database/constraints/errors.constraint';
+import { UserNotFoundException } from './errors/user-not-found.error';
+import { UserRemoveForbiddenException } from './errors/user-remove-forbidden.error';
+import { UsernameConfictException } from './errors/username-exists.error';
 
 @Injectable()
 export class UsersService {
-  private readonly logger = new Logger(UsersService.name);
-
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
+    @InjectPinoLogger(UsersService.name)
+    private readonly logger: PinoLogger,
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
   ) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     try {
-      this.logger.log('Creating new user entity');
+      this.logger.info('Creating new user entity');
 
       const newUser = this.usersRepository.create(createUserDto);
       const user = await this.usersRepository.save(newUser);
 
-      this.logger.log('Successfully created new user');
+      this.logger.info('Successfully created new user');
       return user;
     } catch (err) {
-      if (err?.code === PostgresErrorCode.UniqueViolation) {
-        const errMsg = 'Given username already exists';
-        this.logger.error(
-          `Postgres error code ${PostgresErrorCode.UniqueViolation} - unique constraint violation - ${errMsg}`,
-        );
-        throw new ConflictException(errMsg);
-      }
+      if (err?.code === PostgresErrorCode.UniqueViolation)
+        throw new UsernameConfictException(createUserDto.username, err);
       throw err;
     }
   }
 
   async findOneById(id: number): Promise<User> {
-    this.logger.log('Retrieving user by id');
+    this.logger.info('Retrieving user by id');
     const user = await this.usersRepository.findOneBy({ id });
 
-    if (!user) {
-      const errMsg = 'Failed to find user';
-      this.logger.error(errMsg);
-      throw new NotFoundException(errMsg);
-    }
+    if (!user) throw new UserNotFoundException(id);
+    else this.logger.info('Successfully retrieved user');
 
-    this.logger.log('Successfully retrieved user');
     return user;
   }
 
   async findOneByUsername(username: string): Promise<User> {
-    this.logger.log('Retrieving user by username');
+    this.logger.info('Retrieving user by username');
     const user = await this.usersRepository.findOneBy({ username });
 
-    if (!user) this.logger.error('Failed to find user with given username');
+    if (!user)
+      this.logger.error(
+        { username },
+        'Failed to find user with given username',
+      );
+    else this.logger.info('Successfully retrieved user');
 
-    this.logger.log('Successfully retrieved user');
     return user;
   }
 
-  async remove(id: number, userId: number): Promise<User> {
-    this.logger.log('Removing user by id');
+  async removeOneById(id: number, userId: number): Promise<User> {
+    this.logger.info('Removing user by id');
     if (userId === id) {
       const user = await this.findOneById(id);
       const removedUser = await this.usersRepository.softRemove(user);
 
-      this.logger.log('Successfully removed user by id');
+      this.logger.info('Successfully removed user by id');
       return removedUser;
-    } else {
-      const errMsg = 'Failed to remove user - can only remove own account';
-      this.logger.error(errMsg);
-      throw new ForbiddenException(errMsg);
-    }
+    } else throw new UserRemoveForbiddenException(id, userId);
   }
 }
