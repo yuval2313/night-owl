@@ -1,7 +1,8 @@
 import { BaseEntity } from './base.entity';
 import { Column, Entity, BeforeInsert } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { hash, compare } from 'bcrypt';
+import { hash, verify } from 'argon2';
+import { TokenResponseDto } from '../../auth/res-dtos/token-response.dto';
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -12,12 +13,38 @@ export class User extends BaseEntity {
   @Exclude()
   password: string;
 
+  @Column({ nullable: true })
+  @Exclude()
+  access_token: string;
+
+  @Column({ nullable: true })
+  @Exclude()
+  refresh_token: string;
+
   @BeforeInsert()
   async hashPassword(): Promise<void> {
-    this.password = await hash(this.password, 10);
+    this.password = await hash(this.password);
   }
 
-  comparePassword(password: string): Promise<boolean> {
-    return compare(password, this.password);
+  async insertTokens(tokens: TokenResponseDto): Promise<void> {
+    const { accessToken, refreshToken } = tokens;
+
+    this.access_token = await hash(accessToken);
+    this.refresh_token = await hash(refreshToken);
+  }
+
+  revokeTokens(): void {
+    this.access_token = null;
+    this.refresh_token = null;
+  }
+
+  async comparePassword(password: string): Promise<boolean> {
+    return this.password ? verify(this.password, password) : false;
+  }
+  async compareAccessToken(token: string): Promise<boolean> {
+    return this.access_token ? verify(this.access_token, token) : false;
+  }
+  async compareRefreshToken(token: string): Promise<boolean> {
+    return this.refresh_token ? verify(this.refresh_token, token) : false;
   }
 }

@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AccessTokenAuthGuard } from '../auth/guards/access-token-auth.guard';
 import { User } from './models/users.entity';
 import { RequestWithValidatedUser } from './interfaces/req-with-user.interface';
 import { CreateUserDto } from './req-dtos/create-user.dto';
@@ -23,13 +23,13 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AccessTokenAuthGuard)
   @Get('/:id')
   getUserById(@Param('id') id: string): Promise<User> {
     return this.usersService.findOneById(+id);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AccessTokenAuthGuard)
   @Delete('/:id')
   deleteUserById(
     @Param('id') id: string,

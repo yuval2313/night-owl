@@ -8,6 +8,7 @@ import { PostgresErrorCode } from '../database/constraints/errors.constraint';
 import { UserNotFoundException } from './errors/user-not-found.error';
 import { UserRemoveForbiddenException } from './errors/user-remove-forbidden.error';
 import { UsernameConfictException } from './errors/username-exists.error';
+import { TokenResponseDto } from '../auth/res-dtos/token-response.dto';
 
 @Injectable()
 export class UsersService {
@@ -28,7 +29,7 @@ export class UsersService {
       this.logger.info('Successfully created new user');
       return user;
     } catch (err) {
-      if (err?.code === PostgresErrorCode.UniqueViolation)
+      if (err?.code === PostgresErrorCode.UNIQUE_VIOLATION)
         throw new UsernameConfictException(createUserDto.username, err);
       throw err;
     }
@@ -67,5 +68,27 @@ export class UsersService {
       this.logger.info('Successfully removed user by id');
       return removedUser;
     } else throw new UserRemoveForbiddenException(id, userId);
+  }
+
+  async updateTokens(id: number, tokens: TokenResponseDto): Promise<User> {
+    this.logger.info("Updating user's authentication tokens");
+
+    const user = await this.findOneById(id);
+    await user.insertTokens(tokens);
+    const updatedUser = await this.usersRepository.save(user);
+
+    this.logger.info("Successfully updated user's tokens");
+    return updatedUser;
+  }
+
+  async revokeTokens(id: number): Promise<User> {
+    this.logger.info('Removing authentication tokens');
+
+    const user = await this.findOneById(id);
+    user.revokeTokens();
+    const updatedUser = await this.usersRepository.save(user);
+
+    this.logger.info("Successfully removed user's tokens");
+    return updatedUser;
   }
 }
