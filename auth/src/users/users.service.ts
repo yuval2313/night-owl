@@ -4,11 +4,11 @@ import { CreateUserDto } from './req-dtos/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './models/users.entity';
-import { PostgresErrorCode } from '../database/constraints/errors.constraint';
-import { UserNotFoundException } from './errors/user-not-found.error';
-import { UserRemoveForbiddenException } from './errors/user-remove-forbidden.error';
-import { UsernameConfictException } from './errors/username-exists.error';
+import { PostgresErrorCode } from '../../db/constraints/errors.constraint';
 import { TokenResponseDto } from '../auth/res-dtos/token-response.dto';
+import { CConflictException } from '../errors/conflict.error';
+import { CNotFoundException } from '../errors/not-found.error';
+import { CForbiddenException } from '../errors/forbidden.error';
 
 @Injectable()
 export class UsersService {
@@ -30,7 +30,11 @@ export class UsersService {
       return user;
     } catch (err) {
       if (err?.code === PostgresErrorCode.UNIQUE_VIOLATION)
-        throw new UsernameConfictException(createUserDto.username, err);
+        throw new CConflictException(
+          'Given username already exists',
+          { username: createUserDto.username },
+          { cause: err },
+        );
       throw err;
     }
   }
@@ -39,7 +43,8 @@ export class UsersService {
     this.logger.info('Retrieving user by id');
     const user = await this.usersRepository.findOneBy({ id });
 
-    if (!user) throw new UserNotFoundException(id);
+    if (!user)
+      throw new CNotFoundException('Failed to find user', { targetUserId: id });
     else this.logger.info('Successfully retrieved user');
 
     return user;
@@ -67,7 +72,11 @@ export class UsersService {
 
       this.logger.info('Successfully removed user by id');
       return removedUser;
-    } else throw new UserRemoveForbiddenException(id, userId);
+    } else
+      throw new CForbiddenException('Failed to delete user', {
+        targetUserId: id,
+        userId,
+      });
   }
 
   async updateTokens(id: number, tokens: TokenResponseDto): Promise<User> {

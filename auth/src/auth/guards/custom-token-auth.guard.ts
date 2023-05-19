@@ -2,9 +2,10 @@ import { ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { TokenValidatedUser } from '../interfaces/token-validated-user.interface';
+import { TokenTypes } from '../interfaces/token-types.enum';
 
-export function CustomTokenAuthGuard(type: string | string[]) {
-  class TokenAuthGuard extends AuthGuard(type) {
+export function CustomTokenAuthGuard(type: TokenTypes) {
+  class TokenAuthGuard extends AuthGuard(`jwt-${type}`) {
     handleRequest<TUser = any>(
       err: Error,
       user: TokenValidatedUser,

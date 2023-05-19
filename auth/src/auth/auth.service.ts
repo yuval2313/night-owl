@@ -8,8 +8,7 @@ import { TokenPayload } from './interfaces/token-payload.interface';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 import { ConfigService } from '@nestjs/config';
 import { TokenTypes } from './interfaces/token-types.enum';
-import { UserNotFoundException } from '../users/errors/user-not-found.error';
-import { InvalidTokenCredentialsException } from './errors/invalid-token-credentials.error';
+import { CUnauthorizedException } from '../errors/unauthorized.error';
 
 const configService = new ConfigService();
 const accessTokenSecret = configService.get('JWT_ACCESS_SECRET');
@@ -62,36 +61,43 @@ export class AuthService {
     }
 
     if (!valid)
-      throw new InvalidTokenCredentialsException(token, payload, cause);
+      throw new CUnauthorizedException(
+        'Invalid token credentials',
+        { token, payload },
+        { cause },
+      );
   }
 
   async login(user: User): Promise<TokenResponseDto> {
-    this.logger.info({ userId: user.id }, 'Logging user in');
+    this.logger.info('Logging user in');
 
-    const tokens = await this.getTokens(user.id, user.username);
+    const tokens = await this.generateTokens(user.id, user.username);
     await this.usersService.updateTokens(user.id, tokens);
 
+    this.logger.info('Logged in successfully');
     return tokens;
   }
 
-  async logout(userId: number) {
-    this.logger.info({ userId }, 'Logging user out');
+  async logout(userId: number): Promise<void> {
+    this.logger.info('Logging user out');
     await this.usersService.revokeTokens(userId);
+    this.logger.info('Logged out successfully');
   }
 
   async refreshTokens(
     userId: number,
     username: string,
   ): Promise<TokenResponseDto> {
-    this.logger.info({ userId }, 'Refreshing user tokens');
+    this.logger.info('Refreshing user tokens');
 
-    const tokens = await this.getTokens(userId, username);
+    const tokens = await this.generateTokens(userId, username);
     await this.usersService.updateTokens(userId, tokens);
 
+    this.logger.info('Successfully refreshed tokens');
     return tokens;
   }
 
-  private async getTokens(
+  private async generateTokens(
     userId: number,
     username: string,
   ): Promise<TokenResponseDto> {

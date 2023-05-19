@@ -24,7 +24,7 @@ const passwordValidationOptions: ValidationOptions = {
     const { minLength, minLowercase, minUppercase, minNumbers, minSymbols } =
       passwordCompexityOptions;
 
-    if (value.length < minLength)
+    if (value?.length < minLength)
       return 'password must be longer than or equal to 8 characters';
     return `password is not strong enough and should contain at least: ${minLowercase} lowercase, ${minUppercase} uppercase, ${minNumbers} numerical, and ${minSymbols} special characters`;
   },

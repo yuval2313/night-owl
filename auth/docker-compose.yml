@@ -9,6 +9,7 @@ services:
     ports:
       - '${PORT}:${PORT}'
     volumes:
+      - ./db:/app/db
       - ./src:/app/src
     depends_on:
       - migrations
@@ -21,7 +22,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./src/db:/app/src/db
+      - ./db:/app/db
     depends_on:
       - db
 

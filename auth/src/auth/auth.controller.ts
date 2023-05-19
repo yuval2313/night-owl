@@ -7,7 +7,7 @@ import { AccessTokenAuthGuard } from './guards/access-token-auth.guard';
 import { RequestWithValidatedUser } from '../users/interfaces/req-with-user.interface';
 import { RefreshTokenAuthGuard } from './guards/refresh-token.guard';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

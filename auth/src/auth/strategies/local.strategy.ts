@@ -10,7 +10,7 @@ import { User } from '../../users/models/users.entity';
 import { Request } from 'express';
 import { LoginDto } from '../req-dtos/login.dto';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
-import { InvalidCredentialsException } from '../errors/invalid-credentials.error';
+import { CUnauthorizedException } from '../../errors/unauthorized.error';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -42,7 +42,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     this.logger.info('Successfully validated login request body');
     const user = await this.authService.validateUser({ username, password });
 
-    if (!user) throw new InvalidCredentialsException(username);
+    if (!user)
+      throw new CUnauthorizedException('Invalid user credentials', {
+        username,
+      });
 
     return user;
   }
