@@ -31,7 +31,7 @@ This microservice handles authentication and user related services.
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to add the following environment variables to your .env file.
 
 `PORT`
 `JWT_ACCESS_SECRET`
@@ -42,7 +42,7 @@ To run this project, you will need to add the following environment variables to
 `POSTGRES_PASSWORD`
 `POSTGRES_DB`
 
-You may use .env.example as a template
+You may use .env.example as a template.
 
 ## Installation
 
@@ -65,7 +65,7 @@ docker compose up
 
 ## Configuring Postman
 
-To easily set up the API endpoints and requests in Postman, you can make of the `postman_collection.json` file. 
+To easily set up the API endpoints and requests in Postman, you can make use of the `postman_collection.json` file. 
 
 This file contains a collection of API requests and associated configurations. Follow the steps below to configure Postman with the provided collection:
 
