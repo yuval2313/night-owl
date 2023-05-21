@@ -22,52 +22,56 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# NightOwl - authApi
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Authentication API microservice designed specifically for the NightOwl application, built using the [Nest](https://github.com/nestjs/nest) framework. 
+
+This microservice handles authentication and user related services.
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`PORT`
+`JWT_ACCESS_SECRET`
+`JWT_REFRESH_SECRET`
+`POSTGRES_HOST`
+`POSTGRES_PORT`
+`POSTGRES_USER`
+`POSTGRES_PASSWORD`
+`POSTGRES_DB`
+
+You may use .env.example as a template
 
 ## Installation
 
-```bash
-$ npm install
+- Create a .env file in the root directory of the project. 
+- Use the provided .env.example file as a template and configure the necessary options in the .env file.
+- Make sure you have Docker and Docker Compose installed on your machine.
+
+## Usage
+
+To run the microservice, follow these steps:
+
+- Ensure that you have properly configured the environment variables as mentioned in the previous sections.
+- Open a terminal or command prompt.
+- Navigate to the project directory.
+- Run the following command:
+
+```
+docker compose up
 ```
 
-## Running the app
+## Configuring Postman
 
-```bash
-# development
-$ npm run start
+To easily set up the API endpoints and requests in Postman, you can make of the `postman_collection.json` file. 
 
-# watch mode
-$ npm run start:dev
+This file contains a collection of API requests and associated configurations. Follow the steps below to configure Postman with the provided collection:
 
-# production mode
-$ npm run start:prod
-```
+- Open Postman and click on the "Import" button in the top left corner.
+- In the import window, select the "Upload Files" tab.
+- Click on "Choose Files" and select the `night-owl.authApi.postman_collection.json` file.
+- Click on "Import" to import the collection into Postman.
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Once imported, you will see the NightOwl API collection in your Postman workspace. You can explore the available endpoints, headers, and request bodies within the collection. This makes it easy to interact with the NightOwl - authApi microservice directly from Postman.
