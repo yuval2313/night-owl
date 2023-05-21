@@ -1,0 +1,152 @@
+{
+  "info": {
+    "_postman_id": "8886ca8b-1a96-4407-bcc3-938cf16409a6",
+    "name": "NightOwl",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26760639"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"Yuval\",\n    \"password\": \"ComplexP@ssw0rd\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/auth/login",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ill1dmFsIiwic3ViIjoxLCJpYXQiOjE2ODQ2ODI1OTAsImV4cCI6MTY4NDY4NjE5MH0.vtz9G6qzpXEXU495tcr3ZcIAg2ES9xhFttp3KkGgqTQ",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/auth/logout",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["auth", "logout"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ill1dmFsIiwic3ViIjoxLCJpYXQiOjE2ODQ2ODI2NjMsImV4cCI6MTY4NTI4NzQ2M30.MY523PySePUTWpPjF_PbJqPoGvhkEm16I5oHE248jRY",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/auth/refresh",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["auth", "refresh"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ill1dmFsNCIsInN1YiI6NywiaWF0IjoxNjgxOTQyNDU5LCJleHAiOjE2ODE5NDYwNTl9.6rR5ANhYfRbnJOtLRR7Qg1tZng2ZAp9qCr407lQO7fA",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"Yuval\",\n    \"password\": \"ComplexP@ssw0rd\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/users/register",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get user by id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ill1dmFsIiwic3ViIjoxLCJpYXQiOjE2ODQ2ODI1OTAsImV4cCI6MTY4NDY4NjE5MH0.vtz9G6qzpXEXU495tcr3ZcIAg2ES9xhFttp3KkGgqTQ",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/users/1",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Soft remove user",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ill1dmFsIiwic3ViIjoxLCJpYXQiOjE2ODQ2ODI2NzgsImV4cCI6MTY4NDY4NjI3OH0.o6TG-RfPp_gs7Q6ISb1R47mem_G4QEwDp2ipjnlhp2Q",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/users/1",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
