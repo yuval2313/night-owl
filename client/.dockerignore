@@ -1,0 +1,7 @@
+# Compiled output
+/dist
+/node_modules
+
+# Setup 
+.env
+!.env.example
