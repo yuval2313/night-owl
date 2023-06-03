@@ -3,5 +3,6 @@
 /node_modules
 
 # Setup 
+/scripts
 .env
 !.env.example

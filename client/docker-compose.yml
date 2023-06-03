@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    container_name: app_container
+    container_name: client_app
     build: .
     env_file:
       - .env
@@ -13,13 +13,25 @@ services:
       - ./node_modules:/app/node_modules
       - ./src:/app/src
     depends_on:
+      - migrations
+
+  migrations:
+    container_name: client_migrations
+    build:
+      context: .
+      dockerfile: ./db/Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./db:/app/db
+    depends_on:
       - db
 
   db:
-    container_name: db_container
+    container_name: client_db
     image: 'postgres:latest'
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - ${POSTGRES_LOCAL_PORT}:${POSTGRES_PORT}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
