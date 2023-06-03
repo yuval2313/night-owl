@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    container_name: app_container
+    container_name: auth_app
     build: .
     env_file:
       - .env
@@ -15,7 +15,7 @@ services:
       - migrations
 
   migrations:
-    container_name: migrations_container
+    container_name: auth_migrations
     build:
       context: .
       dockerfile: ./db/Dockerfile
@@ -27,10 +27,10 @@ services:
       - db
 
   db:
-    container_name: db_container
+    container_name: auth_db
     image: 'postgres:latest'
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - ${POSTGRES_LOCAL_PORT}:${POSTGRES_PORT}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
