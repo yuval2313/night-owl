@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ProfilesModule } from './profiles/profiles.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from '../db/data-source';
 import { LoggerModule } from 'nestjs-pino';
+import { ProfilesModule } from './profiles/profiles.module';
 import { FollowingModule } from './following/following.module';
+import { FollowersModule } from './followers/followers.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { FollowingModule } from './following/following.module';
     TypeOrmModule.forRoot(dataSourceOptions),
     ProfilesModule,
     FollowingModule,
+    FollowersModule,
   ],
 })
 export class AppModule {}
