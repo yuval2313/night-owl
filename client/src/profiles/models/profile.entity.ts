@@ -1,7 +1,7 @@
 import { BaseEntity } from '../../models/base.entity';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity()
+@Entity('profiles')
 export class Profile extends BaseEntity {
   @PrimaryColumn({ unique: true, readonly: true })
   user_id: number;

@@ -5,6 +5,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { ProfilesModule } from './profiles/profiles.module';
 import { FollowingModule } from './following/following.module';
 import { FollowersModule } from './followers/followers.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { FollowersModule } from './followers/followers.module';
     ProfilesModule,
     FollowingModule,
     FollowersModule,
+    PostsModule,
   ],
 })
 export class AppModule {}

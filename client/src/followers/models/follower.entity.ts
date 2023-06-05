@@ -2,8 +2,8 @@ import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Profile } from '../../profiles/models/profile.entity';
 import { BaseEntity } from '../../models/base.entity';
 
-@Entity()
-export class Followers extends BaseEntity {
+@Entity('followers')
+export class Follower extends BaseEntity {
   @PrimaryColumn()
   user_id: number;
 
