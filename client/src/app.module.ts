@@ -6,6 +6,8 @@ import { ProfilesModule } from './profiles/profiles.module';
 import { FollowersModule } from './followers/followers.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
+import { PhotosModule } from './photos/photos.module';
+import { PostPhotosModule } from './post_photos/post_photos.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { CommentsModule } from './comments/comments.module';
     FollowersModule,
     PostsModule,
     CommentsModule,
+    PhotosModule,
+    PostPhotosModule,
   ],
 })
 export class AppModule {}
