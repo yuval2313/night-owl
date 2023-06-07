@@ -13,6 +13,7 @@ import { AccessTokenAuthGuard } from '../auth/guards/access-token-auth.guard';
 import { User } from './models/users.entity';
 import { RequestWithValidatedUser } from './interfaces/req-with-user.interface';
 import { CreateUserDto } from './req-dtos/create-user.dto';
+import { ValidIdPipe } from './pipes/valid-param-id.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -25,14 +26,14 @@ export class UsersController {
 
   @UseGuards(AccessTokenAuthGuard)
   @Get('/:id')
-  getUserById(@Param('id') id: string): Promise<User> {
+  getUserById(@Param('id', ValidIdPipe) id: number): Promise<User> {
     return this.usersService.findOneById(+id);
   }
 
   @UseGuards(AccessTokenAuthGuard)
   @Delete('/:id')
   deleteUserById(
-    @Param('id') id: string,
+    @Param('id', ValidIdPipe) id: number,
     @Request() req: RequestWithValidatedUser,
   ): Promise<User> {
     return this.usersService.removeOneById(+id, req.user.userId);
