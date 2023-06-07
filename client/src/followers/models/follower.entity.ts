@@ -1,20 +1,36 @@
-import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Profile } from '../../profiles/models/profile.entity';
-import { BaseEntity } from '../../models/base.entity';
 
 @Entity('followers')
-export class Follower extends BaseEntity {
+export class Followers {
   @PrimaryColumn()
-  user_id: number;
+  follower: number;
 
   @PrimaryColumn()
-  followed_by_user_id: number;
+  follows: number;
 
   @ManyToOne(() => Profile)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'follower' })
   profile: Profile;
 
   @ManyToOne(() => Profile)
-  @JoinColumn({ name: 'followed_by_user_id' })
-  followed_by_profile: Profile;
+  @JoinColumn({ name: 'follows' })
+  follows_profile: Profile;
+
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  updated_at: Date;
+
+  @DeleteDateColumn({ type: 'timestamptz' })
+  deleted_at: Date;
 }

@@ -1,9 +1,9 @@
 import { BaseEntity } from '../../models/base.entity';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity('profiles')
 export class Profile extends BaseEntity {
-  @PrimaryColumn({ unique: true, readonly: true })
+  @Column()
   user_id: number;
 
   @Column()
@@ -13,5 +13,8 @@ export class Profile extends BaseEntity {
   last_name: string;
 
   @Column()
-  about: string;
+  photo_url: string;
+
+  @Column({ type: 'jsonb' })
+  metadata: Record<string, any>;
 }

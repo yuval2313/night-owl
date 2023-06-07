@@ -11,12 +11,15 @@ import { Post } from '../../posts/models/post.entity';
 
 @Entity('comments')
 export class Comment extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @Column()
+  profile_id: number;
+
+  @Column()
+  post_id: number;
 
   @ManyToOne(() => Profile)
-  @JoinColumn({ name: 'author_id' })
-  author: Profile;
+  @JoinColumn({ name: 'profile_id' })
+  profile: Profile;
 
   @ManyToOne(() => Post)
   @JoinColumn({ name: 'post_id' })

@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from '../db/data-source';
 import { LoggerModule } from 'nestjs-pino';
 import { ProfilesModule } from './profiles/profiles.module';
-import { FollowingModule } from './following/following.module';
 import { FollowersModule } from './followers/followers.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
@@ -31,7 +30,6 @@ import { CommentsModule } from './comments/comments.module';
     }),
     TypeOrmModule.forRoot(dataSourceOptions),
     ProfilesModule,
-    FollowingModule,
     FollowersModule,
     PostsModule,
     CommentsModule,
