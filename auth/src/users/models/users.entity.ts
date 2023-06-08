@@ -3,9 +3,11 @@ import { Column, Entity, BeforeInsert } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { hash, verify } from 'argon2';
 import { TokenResponseDto } from '../../auth/res-dtos/token-response.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('users')
 export class User extends BaseEntity {
+  @ApiProperty({ description: 'username property', example: 'Yuval' })
   @Column({ unique: true })
   username: string;
 
