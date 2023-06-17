@@ -6,6 +6,7 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -66,6 +67,9 @@ export class ProfilesController {
   })
   @ApiBadRequestResponse({
     description: 'Bad Request: Validation error',
+  })
+  @ApiForbiddenResponse({
+    description: 'Forbidden: Only owner can perform this action',
   })
   @ApiNotFoundResponse({
     description: 'Not Found: Could not find profile',

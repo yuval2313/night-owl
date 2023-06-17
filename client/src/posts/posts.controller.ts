@@ -10,6 +10,7 @@ import {
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -48,6 +49,9 @@ export class PostsController {
     description: 'This route updates a post by id',
   })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
+  @ApiForbiddenResponse({
+    description: 'Forbidden: Only owner can perform this action',
+  })
   @ApiNotFoundResponse({
     description: "Not Found: Could not find profile's post",
   })
@@ -68,6 +72,9 @@ export class PostsController {
   })
   @ApiOkResponse({ type: PostEntity, description: 'Successfully removed post' })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
+  @ApiForbiddenResponse({
+    description: 'Forbidden: Only owner can perform this action',
+  })
   @ApiNotFoundResponse({
     description: "Not Found: Could not find profile's post",
   })
@@ -75,7 +82,7 @@ export class PostsController {
   removePost(@Param('postId') postId: string): void {}
 
   @ApiOperation({
-    summary: 'This route gets all the posts for a given profile',
+    summary: 'This route gets all the posts from a given profile',
   })
   @ApiParam({
     type: String,
@@ -94,7 +101,7 @@ export class PostsController {
   getPosts(@Param('profileId') profileId: string): void {}
 
   @ApiOperation({
-    summary: 'This route gets a post for a given profile by id',
+    summary: 'This route gets a post from a given profile by id',
   })
   @ApiParam({
     type: String,

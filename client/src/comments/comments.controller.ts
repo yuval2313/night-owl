@@ -11,6 +11,7 @@ import { CommentsService } from './comments.service';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -50,6 +51,9 @@ export class CommentsController {
     description: 'Successfully updated the comment',
   })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
+  @ApiForbiddenResponse({
+    description: 'Forbidden: Only owner can perform this action',
+  })
   @ApiNotFoundResponse({
     description: 'Not Found: Could not find post / comment',
   })
@@ -68,6 +72,9 @@ export class CommentsController {
     description: 'Successfully removed the comment',
   })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
+  @ApiForbiddenResponse({
+    description: 'Forbidden: Only owner can perform this action',
+  })
   @ApiNotFoundResponse({
     description: 'Not Found: Could not find post / comment',
   })
