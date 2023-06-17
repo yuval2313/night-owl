@@ -15,6 +15,7 @@ import { RequestWithValidatedUser } from './interfaces/req-with-user.interface';
 import { CreateUserDto } from './req-dtos/create-user.dto';
 import { ValidIdPipe } from './pipes/valid-param-id.pipe';
 import {
+  ApiOperation,
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
@@ -31,12 +32,13 @@ import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiOperation({ summary: 'This route creates a new user' })
   @ApiCreatedResponse({
     type: User,
     description: 'Successfully registered user',
   })
   @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error according to CreateUserDto',
+    description: 'Bad Request: Validation error',
   })
   @ApiConflictResponse({
     description: 'Conflict: Username already exists',
@@ -46,11 +48,11 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
+  @ApiOperation({ summary: 'This route gets a user by id' })
   @CApiBearerAuth('access')
   @ApiParam({
     name: 'id',
-    description: 'User id (numerical)',
-    example: '1',
+    description: 'User id',
     type: String,
   })
   @ApiOkResponse({
@@ -58,7 +60,7 @@ export class UsersController {
     description: 'Successfully returned user',
   })
   @ApiBadRequestResponse({
-    description: 'Bad Request: Invalid route parameter id (not a number)',
+    description: 'Bad Request: Validation error',
   })
   @ApiNotFoundResponse({ description: 'Not Found: User not found' })
   @UseGuards(AccessTokenAuthGuard)
@@ -67,16 +69,19 @@ export class UsersController {
     return this.usersService.findOneById(id);
   }
 
+  @ApiOperation({ summary: 'This route deletes a user by id' })
   @CApiBearerAuth('access')
   @ApiParam({
-    name: 'id',
-    description: 'User id (numerical)',
-    example: '1',
     type: String,
+    name: 'id',
+    description: 'User id',
   })
   @ApiOkResponse({
     type: User,
     description: 'Successfully deleted and returned user',
+  })
+  @ApiBadRequestResponse({
+    description: 'Bad Request: Validation error',
   })
   @ApiForbiddenResponse({
     description: 'Forbidden: Cannot delete a different user',

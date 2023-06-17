@@ -6,8 +6,8 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 
-export abstract class BaseEntity {
-  @ApiProperty({ description: 'Generated identifier', example: '1' })
+export class BaseEntity {
+  @ApiProperty({ description: 'Generated identifier', example: 1 })
   @PrimaryGeneratedColumn()
   id: number;
 

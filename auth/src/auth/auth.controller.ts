@@ -14,6 +14,7 @@ import { AccessTokenAuthGuard } from './guards/access-token-auth.guard';
 import { RequestWithValidatedUser } from '../users/interfaces/req-with-user.interface';
 import { RefreshTokenAuthGuard } from './guards/refresh-token.guard';
 import {
+  ApiOperation,
   ApiBadRequestResponse,
   ApiBody,
   ApiCreatedResponse,
@@ -29,6 +30,7 @@ import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiOperation({ summary: 'This route logs a user in' })
   @ApiBody({ type: LoginDto })
   @ApiCreatedResponse({
     type: TokenResponseDto,
@@ -36,8 +38,7 @@ export class AuthController {
       'Successfully logged user in and generated authentication tokens',
   })
   @ApiBadRequestResponse({
-    description:
-      'Bad Request: Validation error - missing properties "username" or "password"',
+    description: 'Bad Request: Validation error',
   })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized: Invalid user credentials',
@@ -48,6 +49,7 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
+  @ApiOperation({ summary: 'This route logs a user out' })
   @CApiBearerAuth('access')
   @ApiNoContentResponse({ description: 'Successfully logged out user' })
   @UseGuards(AccessTokenAuthGuard)
@@ -57,6 +59,7 @@ export class AuthController {
     return this.authService.logout(req.user.userId);
   }
 
+  @ApiOperation({ summary: 'This route produces new authentication tokens' })
   @CApiBearerAuth('refresh')
   @ApiCreatedResponse({
     type: TokenResponseDto,
