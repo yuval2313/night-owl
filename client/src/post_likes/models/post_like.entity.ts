@@ -13,13 +13,16 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('post_likes')
 export class PostLike {
-  @ApiProperty({ description: 'Liked post id', example: 111 })
-  @PrimaryColumn()
-  post_id: number;
+  @ApiProperty({ description: 'Liked post id', example: '111' })
+  @PrimaryColumn({ type: 'uuid' })
+  post_id: string;
 
-  @ApiProperty({ description: 'Profile id who performed the like', example: 1 })
-  @PrimaryColumn()
-  profile_id: number;
+  @ApiProperty({
+    description: 'Profile id who performed the like',
+    example: '1',
+  })
+  @PrimaryColumn({ type: 'uuid' })
+  profile_id: string;
 
   @ManyToOne(() => Post)
   @JoinColumn({ name: 'post_id' })

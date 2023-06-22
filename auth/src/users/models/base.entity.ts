@@ -8,8 +8,8 @@ import {
 
 export class BaseEntity {
   @ApiProperty({ description: 'Generated identifier', example: 1 })
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @ApiProperty({ description: 'Create date' })
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })

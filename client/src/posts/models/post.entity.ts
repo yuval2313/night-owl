@@ -5,9 +5,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('posts')
 export class Post extends BaseEntity {
-  @ApiProperty({ description: "Profile id of post's creator", example: 1 })
-  @Column()
-  profile_id: number;
+  @ApiProperty({ description: "Profile id of post's creator", example: '1' })
+  @Column({ type: 'uuid' })
+  profile_id: string;
 
   @ApiProperty({
     description: "Post's textual content",

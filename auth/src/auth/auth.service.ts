@@ -78,14 +78,14 @@ export class AuthService {
     return tokens;
   }
 
-  async logout(userId: number): Promise<void> {
+  async logout(userId: string): Promise<void> {
     this.logger.info('Logging user out');
     await this.usersService.revokeTokens(userId);
     this.logger.info('Logged out successfully');
   }
 
   async refreshTokens(
-    userId: number,
+    userId: string,
     username: string,
   ): Promise<TokenResponseDto> {
     this.logger.info('Refreshing user tokens');
@@ -98,7 +98,7 @@ export class AuthService {
   }
 
   private async generateTokens(
-    userId: number,
+    userId: string,
     username: string,
   ): Promise<TokenResponseDto> {
     const payload: TokenPayload = { username, sub: userId };

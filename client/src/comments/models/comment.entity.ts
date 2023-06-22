@@ -8,17 +8,17 @@ import { ApiProperty } from '@nestjs/swagger';
 export class Comment extends BaseEntity {
   @ApiProperty({
     description: 'Profile id of one who made the comment',
-    example: 1,
+    example: '1',
   })
-  @Column()
-  profile_id: number;
+  @Column({ type: 'uuid' })
+  profile_id: string;
 
   @ApiProperty({
     description: 'Post id of post which was commented on',
-    example: 111,
+    example: '111',
   })
-  @Column()
-  post_id: number;
+  @Column({ type: 'uuid' })
+  post_id: string;
 
   @ApiProperty({
     description: "Comment's textual content",

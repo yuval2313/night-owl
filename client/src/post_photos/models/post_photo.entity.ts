@@ -13,13 +13,13 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('post_photos')
 export class PostPhoto {
-  @ApiProperty({ description: 'Photo id', example: 1 })
-  @PrimaryColumn()
-  photo_id: number;
+  @ApiProperty({ description: 'Photo id', example: '1' })
+  @PrimaryColumn({ type: 'uuid' })
+  photo_id: string;
 
-  @ApiProperty({ description: 'Post id', example: 111 })
-  @PrimaryColumn()
-  post_id: number;
+  @ApiProperty({ description: 'Post id', example: '111' })
+  @PrimaryColumn({ type: 'uuid' })
+  post_id: string;
 
   @ManyToOne(() => Photo)
   @JoinColumn({ name: 'photo_id' })

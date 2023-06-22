@@ -4,17 +4,13 @@ import { Column, Entity } from 'typeorm';
 
 @Entity('profiles')
 export class Profile extends BaseEntity {
-  @ApiProperty({ description: 'User id', example: 1 })
-  @Column()
-  user_id: number;
+  @ApiProperty({ description: 'User id', example: '1' })
+  @Column({ type: 'uuid' })
+  user_id: string;
 
-  @ApiProperty({ description: 'First name', example: 'Tom' })
+  @ApiProperty({ description: 'Full name', example: 'Tom Cruise' })
   @Column()
-  first_name: string;
-
-  @ApiProperty({ description: 'Last name', example: 'Cruise' })
-  @Column()
-  last_name: string;
+  name: string;
 
   @ApiProperty({ description: 'Profile picture URL' })
   @Column()
