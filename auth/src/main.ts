@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
 import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const configService = new ConfigService();
 
@@ -24,6 +25,34 @@ async function bootstrap() {
     new ClassSerializerInterceptor(reflector),
     new LoggerErrorInterceptor(),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('authApi')
+    .setDescription('authApi microservice for NightOwl')
+    .addBearerAuth(
+      {
+        name: 'Access token authentication',
+        type: 'http',
+        scheme: 'Bearer',
+        description: 'Access token authentication',
+        bearerFormat: 'JWT',
+      },
+      'access',
+    )
+    .addBearerAuth(
+      {
+        name: 'Refresh token authentication',
+        type: 'http',
+        scheme: 'Bearer',
+        description: 'Refresh token authentication',
+        bearerFormat: 'JWT',
+      },
+      'refresh',
+    )
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   const port = +configService.get<number>('PORT');
   await app.listen(port);

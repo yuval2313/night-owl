@@ -8,22 +8,31 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Profile } from '../../profiles/models/profile.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
-@Entity('followers')
-export class Followers {
+@Entity('follows')
+export class Follow {
+  @ApiProperty({
+    description: 'Profile id of the user doing the following',
+    example: 1,
+  })
   @PrimaryColumn()
   follower: number;
 
+  @ApiProperty({
+    description: 'Profile id of the user being followed',
+    example: 2,
+  })
   @PrimaryColumn()
-  follows: number;
+  followed: number;
 
   @ManyToOne(() => Profile)
   @JoinColumn({ name: 'follower' })
-  profile: Profile;
+  follower_profile: Profile;
 
   @ManyToOne(() => Profile)
-  @JoinColumn({ name: 'follows' })
-  follows_profile: Profile;
+  @JoinColumn({ name: 'followed' })
+  followed_profile: Profile;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

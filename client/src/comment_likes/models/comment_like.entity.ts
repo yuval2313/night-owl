@@ -9,12 +9,18 @@ import {
 } from 'typeorm';
 import { Comment } from '../../comments/models/comment.entity';
 import { Profile } from '../../profiles/models/profile.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('comment_likes')
 export class CommentLike {
+  @ApiProperty({ description: 'Liked comment id', example: 111 })
   @PrimaryColumn()
   comment_id: number;
 
+  @ApiProperty({
+    description: 'Profile id of the one performing a like',
+    example: 1,
+  })
   @PrimaryColumn()
   profile_id: number;
 
