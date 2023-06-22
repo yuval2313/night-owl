@@ -1,4 +1,4 @@
 export interface TokenValidatedUser {
-  userId: number;
+  userId: string;
   username: string;
 }

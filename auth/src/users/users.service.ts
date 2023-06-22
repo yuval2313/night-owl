@@ -39,15 +39,19 @@ export class UsersService {
     }
   }
 
-  async findOneById(id: number): Promise<User> {
+  async findOneById(id: string): Promise<User> {
     this.logger.info('Retrieving user by id');
-    const user = await this.usersRepository.findOneBy({ id });
-
-    if (!user)
-      throw new CNotFoundException('Failed to find user', { targetUserId: id });
-    else this.logger.info('Successfully retrieved user');
-
-    return user;
+    try {
+      const user = await this.usersRepository.findOneByOrFail({ id });
+      this.logger.info('Successfully retrieved user');
+      return user;
+    } catch (err) {
+      throw new CNotFoundException(
+        'Failed to find user',
+        { targetUserId: id },
+        { cause: err },
+      );
+    }
   }
 
   async findOneByUsername(username: string): Promise<User> {
@@ -64,7 +68,7 @@ export class UsersService {
     return user;
   }
 
-  async removeOneById(id: number, userId: number): Promise<User> {
+  async removeOneById(id: string, userId: string): Promise<User> {
     this.logger.info('Removing user by id');
     if (userId === id) {
       const user = await this.findOneById(id);
@@ -79,7 +83,7 @@ export class UsersService {
       });
   }
 
-  async updateTokens(id: number, tokens: TokenResponseDto): Promise<User> {
+  async updateTokens(id: string, tokens: TokenResponseDto): Promise<User> {
     this.logger.info("Updating user's authentication tokens");
 
     const user = await this.findOneById(id);
@@ -90,7 +94,7 @@ export class UsersService {
     return updatedUser;
   }
 
-  async revokeTokens(id: number): Promise<User> {
+  async revokeTokens(id: string): Promise<User> {
     this.logger.info('Removing authentication tokens');
 
     const user = await this.findOneById(id);

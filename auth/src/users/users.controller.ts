@@ -13,7 +13,6 @@ import { AccessTokenAuthGuard } from '../auth/guards/access-token-auth.guard';
 import { User } from './models/users.entity';
 import { RequestWithValidatedUser } from './interfaces/req-with-user.interface';
 import { CreateUserDto } from './req-dtos/create-user.dto';
-import { ValidIdPipe } from './pipes/valid-param-id.pipe';
 import {
   ApiOperation,
   ApiBadRequestResponse,
@@ -65,7 +64,7 @@ export class UsersController {
   @ApiNotFoundResponse({ description: 'Not Found: User not found' })
   @UseGuards(AccessTokenAuthGuard)
   @Get('/:id')
-  getUserById(@Param('id', ValidIdPipe) id: number): Promise<User> {
+  getUserById(@Param('id') id: string): Promise<User> {
     return this.usersService.findOneById(id);
   }
 
@@ -89,7 +88,7 @@ export class UsersController {
   @UseGuards(AccessTokenAuthGuard)
   @Delete('/:id')
   deleteUserById(
-    @Param('id', ValidIdPipe) id: number,
+    @Param('id') id: string,
     @Request() req: RequestWithValidatedUser,
   ): Promise<User> {
     return this.usersService.removeOneById(id, req.user.userId);
