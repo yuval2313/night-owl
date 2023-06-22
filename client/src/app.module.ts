@@ -11,7 +11,6 @@ import { PostPhotosModule } from './post_photos/post_photos.module';
 import { PostLikesModule } from './post_likes/post_likes.module';
 import { CommentLikesModule } from './comment_likes/comment_likes.module';
 import { BusinessesModule } from './businesses/businesses.module';
-import { SkillsModule } from './skills/skills.module';
 
 @Module({
   imports: [
@@ -44,7 +43,6 @@ import { SkillsModule } from './skills/skills.module';
     PostLikesModule,
     CommentLikesModule,
     BusinessesModule,
-    SkillsModule,
   ],
 })
 export class AppModule {}
