@@ -13,16 +13,16 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('comment_likes')
 export class CommentLike {
-  @ApiProperty({ description: 'Liked comment id', example: 111 })
-  @PrimaryColumn()
-  comment_id: number;
+  @ApiProperty({ description: 'Liked comment id', example: '111' })
+  @PrimaryColumn({ type: 'uuid' })
+  comment_id: string;
 
   @ApiProperty({
     description: 'Profile id of the one performing a like',
-    example: 1,
+    example: '1',
   })
-  @PrimaryColumn()
-  profile_id: number;
+  @PrimaryColumn({ type: 'uuid' })
+  profile_id: string;
 
   @ManyToOne(() => Comment)
   @JoinColumn({ name: 'comment_id' })

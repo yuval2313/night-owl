@@ -14,17 +14,17 @@ import { ApiProperty } from '@nestjs/swagger';
 export class Follow {
   @ApiProperty({
     description: 'Profile id of the user doing the following',
-    example: 1,
+    example: '1',
   })
-  @PrimaryColumn()
-  follower: number;
+  @PrimaryColumn({ type: 'uuid' })
+  follower: string;
 
   @ApiProperty({
     description: 'Profile id of the user being followed',
-    example: 2,
+    example: '2',
   })
-  @PrimaryColumn()
-  followed: number;
+  @PrimaryColumn({ type: 'uuid' })
+  followed: string;
 
   @ManyToOne(() => Profile)
   @JoinColumn({ name: 'follower' })
