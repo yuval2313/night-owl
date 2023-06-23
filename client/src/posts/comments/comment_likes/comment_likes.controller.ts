@@ -10,12 +10,12 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '../../../decorators/custom-api-bearer-auth.decorator';
 import { CommentLike } from './models/comment_like.entity';
 
 @ApiTags('comment_likes')
 @CApiBearerAuth()
-@Controller('comments/:commentId')
+@Controller()
 export class CommentLikesController {
   constructor(private readonly commentLikesService: CommentLikesService) {}
 

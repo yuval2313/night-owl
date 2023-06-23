@@ -18,14 +18,14 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '../../decorators/custom-api-bearer-auth.decorator';
 import { Comment } from './models/comment.entity';
 import { CreateCommentDto } from './req-dtos/create-comment.dto';
 import { UpdateCommentDto } from './req-dtos/update-comment.dto';
 
 @ApiTags('comments')
 @CApiBearerAuth()
-@Controller('posts/:postId/comments')
+@Controller()
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 

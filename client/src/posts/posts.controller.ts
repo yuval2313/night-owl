@@ -25,7 +25,7 @@ import { UpdatePostDto } from './req-dtos/update-post.dto';
 
 @ApiTags('posts')
 @CApiBearerAuth()
-@Controller('posts')
+@Controller()
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 

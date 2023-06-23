@@ -3,15 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from '../db/data-source';
 import { LoggerModule } from 'nestjs-pino';
 import { ProfilesModule } from './profiles/profiles.module';
-import { FollowsModule } from './follows/follows.module';
+import { FollowsModule } from './profiles/follows/follows.module';
 import { PostsModule } from './posts/posts.module';
-import { CommentsModule } from './comments/comments.module';
+import { PostLikesModule } from './posts/post_likes/post_likes.module';
+import { PostPhotosModule } from './posts/post_photos/post_photos.module';
+import { CommentsModule } from './posts/comments/comments.module';
+import { CommentLikesModule } from './posts/comments/comment_likes/comment_likes.module';
 import { PhotosModule } from './photos/photos.module';
-import { PostPhotosModule } from './post_photos/post_photos.module';
-import { PostLikesModule } from './post_likes/post_likes.module';
-import { CommentLikesModule } from './comment_likes/comment_likes.module';
 import { BusinessesModule } from './businesses/businesses.module';
-import { SkillsModule } from './skills/skills.module';
+import { RouterModule } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -36,15 +36,29 @@ import { SkillsModule } from './skills/skills.module';
     }),
     TypeOrmModule.forRoot(dataSourceOptions),
     ProfilesModule,
-    FollowsModule,
     PostsModule,
-    CommentsModule,
     PhotosModule,
-    PostPhotosModule,
-    PostLikesModule,
-    CommentLikesModule,
     BusinessesModule,
-    SkillsModule,
+    RouterModule.register([
+      {
+        path: 'profiles',
+        module: ProfilesModule,
+        children: [{ path: '/:profileId', module: FollowsModule }],
+      },
+      {
+        path: 'posts',
+        module: PostsModule,
+        children: [
+          { path: '/:postId', module: PostPhotosModule },
+          { path: '/:postId', module: PostLikesModule },
+          {
+            path: '/:postId/comments',
+            module: CommentsModule,
+            children: [{ path: '/:commentId', module: CommentLikesModule }],
+          },
+        ],
+      },
+    ]),
   ],
 })
 export class AppModule {}

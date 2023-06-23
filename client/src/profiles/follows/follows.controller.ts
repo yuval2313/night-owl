@@ -18,12 +18,12 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '../../decorators/custom-api-bearer-auth.decorator';
 import { Follow } from './models/follow.entity';
 
 @ApiTags('follows')
 @CApiBearerAuth()
-@Controller('profiles/:profileId')
+@Controller()
 export class FollowsController {
   constructor(private readonly followsService: FollowsService) {}
 

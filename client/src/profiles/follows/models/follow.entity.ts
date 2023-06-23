@@ -7,27 +7,32 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Post } from '../../posts/models/post.entity';
-import { Profile } from '../../profiles/models/profile.entity';
+import { Profile } from '../../models/profile.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
-@Entity('post_likes')
-export class PostLike {
-  @ApiProperty({ description: 'Liked post id', example: 111 })
+@Entity('follows')
+export class Follow {
+  @ApiProperty({
+    description: 'Profile id of the user doing the following',
+    example: 1,
+  })
   @PrimaryColumn()
-  post_id: number;
+  follower: number;
 
-  @ApiProperty({ description: 'Profile id who performed the like', example: 1 })
+  @ApiProperty({
+    description: 'Profile id of the user being followed',
+    example: 2,
+  })
   @PrimaryColumn()
-  profile_id: number;
-
-  @ManyToOne(() => Post)
-  @JoinColumn({ name: 'post_id' })
-  post: Post;
+  followed: number;
 
   @ManyToOne(() => Profile)
-  @JoinColumn({ name: 'profile_id' })
-  profile: Profile;
+  @JoinColumn({ name: 'follower' })
+  follower_profile: Profile;
+
+  @ManyToOne(() => Profile)
+  @JoinColumn({ name: 'followed' })
+  followed_profile: Profile;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
