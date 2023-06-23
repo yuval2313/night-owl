@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../../models/base.entity';
-import { Profile } from '../../profiles/models/profile.entity';
-import { Post } from '../../posts/models/post.entity';
+import { BaseEntity } from '../../../models/base.entity';
+import { Profile } from '../../../profiles/models/profile.entity';
+import { Post } from '../../models/post.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('comments')

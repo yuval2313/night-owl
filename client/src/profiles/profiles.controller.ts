@@ -18,7 +18,7 @@ import { UpdateProfileDto } from './req-dtos/update-profile.dto';
 
 @ApiTags('profiles')
 @CApiBearerAuth()
-@Controller('profiles')
+@Controller()
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 

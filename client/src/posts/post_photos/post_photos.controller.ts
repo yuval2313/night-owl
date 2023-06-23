@@ -12,12 +12,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreatePostPhotoDto } from './req-dtos/create-post-photo.dto';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '../../decorators/custom-api-bearer-auth.decorator';
 import { PostPhoto } from './models/post_photo.entity';
 
 @ApiTags('post_photos')
 @CApiBearerAuth()
-@Controller('/posts/:postId/photos')
+@Controller()
 export class PostPhotosController {
   constructor(private readonly postPhotosService: PostPhotosService) {}
 
