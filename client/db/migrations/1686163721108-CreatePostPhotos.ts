@@ -5,7 +5,7 @@ export class CreatePostPhotos1686163721108 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "post_photos" ("photo_id" integer NOT NULL, "post_id" integer NOT NULL, "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP WITH TIME ZONE, CONSTRAINT "PK_497c9946f204f5777943b46f5eb" PRIMARY KEY ("photo_id", "post_id"))`,
+      `CREATE TABLE "post_photos" ("photo_id" uuid NOT NULL, "post_id" uuid NOT NULL, "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP WITH TIME ZONE, CONSTRAINT "PK_497c9946f204f5777943b46f5eb" PRIMARY KEY ("photo_id", "post_id"))`,
     );
     await queryRunner.query(
       `ALTER TABLE "post_photos" ADD CONSTRAINT "FK_74c3316d09991b7240ed8ca0de2" FOREIGN KEY ("photo_id") REFERENCES "photos"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
