@@ -46,9 +46,6 @@ export class ProfilesController {
     type: Profile,
     description: 'Successfully retreived profile',
   })
-  @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error',
-  })
   @ApiNotFoundResponse({
     description: 'Not Found: Could not find profile',
   })
@@ -69,7 +66,7 @@ export class ProfilesController {
     description: 'Bad Request: Validation error',
   })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({
     description: 'Not Found: Could not find profile',

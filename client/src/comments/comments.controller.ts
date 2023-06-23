@@ -52,10 +52,10 @@ export class CommentsController {
   })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({
-    description: 'Not Found: Could not find post / comment',
+    description: 'Not Found: Could not find comment',
   })
   @Patch('/:commentId')
   editComment(
@@ -71,12 +71,11 @@ export class CommentsController {
     type: Comment,
     description: 'Successfully removed the comment',
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({
-    description: 'Not Found: Could not find post / comment',
+    description: 'Not Found: Could not find comment',
   })
   @Delete('/:commentId')
   removeComment(
@@ -90,10 +89,7 @@ export class CommentsController {
     type: [Comment],
     description: "Successfully retrieved given post's comments",
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
-  @ApiNotFoundResponse({
-    description: 'Not Found: Could not find post',
-  })
+  @ApiNotFoundResponse({ description: 'Not Found: Could not find comments' })
   @Get()
   getPostComments(@Param('postId') postId: string): void {}
 
@@ -102,12 +98,9 @@ export class CommentsController {
   @ApiParam({ type: String, name: 'commentId', description: 'Comment id' })
   @ApiOkResponse({
     type: Comment,
-    description: "Successfully retrieved given post's comment",
+    description: 'Successfully retrieved comment',
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
-  @ApiNotFoundResponse({
-    description: 'Not Found: Could not find post / comment',
-  })
+  @ApiNotFoundResponse({ description: 'Not Found: Could not find comment' })
   @Get('/:commentId')
   getPostComment(
     @Param('postId') postId: string,

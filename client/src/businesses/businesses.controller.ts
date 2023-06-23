@@ -29,11 +29,7 @@ import { UpdateBusinessDto } from './req-dtos/update-business.dto';
 export class BusinessesController {
   constructor(private readonly businessesService: BusinessesService) {}
 
-  @ApiOperation({
-    summary: 'This route creates a new business',
-    description:
-      "Creates a new business associated to authenticated user's profile",
-  })
+  @ApiOperation({ summary: 'This route creates a new business' })
   @ApiCreatedResponse({
     type: Business,
     description: 'Successfully created business',
@@ -50,7 +46,7 @@ export class BusinessesController {
   })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({ description: 'Not Found: Could not find business' })
   @Patch('/:businessId')
@@ -68,9 +64,8 @@ export class BusinessesController {
     type: Business,
     description: 'Successfully removed business',
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({ description: 'Not Found: Could not find business' })
   @Delete('/:businessId')
@@ -82,23 +77,7 @@ export class BusinessesController {
     type: Business,
     description: 'Successfully retrieved business',
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiNotFoundResponse({ description: 'Not Found: Could not find business' })
   @Get('/:businessId')
   getBusinessById(@Param('businessId') businessId: string): void {}
-
-  @ApiOperation({ summary: "This route gets a given profile's businesses" })
-  @ApiParam({
-    type: String,
-    name: 'profileId',
-    description: 'Profile id of owner',
-  })
-  @ApiOkResponse({
-    type: [Business],
-    description: 'Successfully retrieved businesses',
-  })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
-  @ApiNotFoundResponse({ description: 'Not Found: Could not find business' })
-  @Get('/:profileId')
-  getProfileBusinesses(@Param('profileId') profileId: string): void {}
 }

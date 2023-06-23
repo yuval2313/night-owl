@@ -1,16 +1,6 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { FollowsService } from './follows.service';
 import {
-  ApiBadRequestResponse,
-  ApiConflictResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -37,14 +27,8 @@ export class FollowsController {
     type: Follow,
     description: 'Successfully created follow entity',
   })
-  @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error',
-  })
   @ApiNotFoundResponse({
     description: 'Not Found: Could not find given profile',
-  })
-  @ApiConflictResponse({
-    description: 'Conflict: Already following profile',
   })
   @Post('follow')
   follow(@Param('profileId') profileId: string): void {}
@@ -59,33 +43,11 @@ export class FollowsController {
     type: Follow,
     description: 'Successfully performed soft deletion on follow',
   })
-  @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error',
-  })
   @ApiNotFoundResponse({
-    description: 'Not Found: Could not find profile / follow',
+    description: 'Not Found: Could not find profile',
   })
   @Delete('unfollow')
   unfollow(@Param('profileId') profileId: string): void {}
-
-  // refollow
-  @ApiOperation({
-    summary: 'This route refollows an unfollowed profile',
-    description: 'Removes a soft delete from a follow entity',
-  })
-  @ApiParam({ type: String, name: 'profileId', description: 'Profile id' })
-  @ApiOkResponse({
-    type: Follow,
-    description: 'Successfully performed refollow',
-  })
-  @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error',
-  })
-  @ApiNotFoundResponse({
-    description: 'Not Found: Could not find profile / soft deleted follow',
-  })
-  @Patch('refollow')
-  refollow(@Param('profileId') profileId: string): void {}
 
   // getFollowers
   @ApiOperation({
@@ -96,11 +58,8 @@ export class FollowsController {
     type: [Follow],
     description: 'Successfully retrieved all followers',
   })
-  @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error',
-  })
   @ApiNotFoundResponse({
-    description: 'Could not find profile / any followers',
+    description: 'Could not find any followers',
   })
   @Get('/followers')
   getFollowers(@Param('profileId') profileId: string): void {}
@@ -114,11 +73,8 @@ export class FollowsController {
     type: [Follow],
     description: 'Successfully retrieved all follows',
   })
-  @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error',
-  })
   @ApiNotFoundResponse({
-    description: 'Could not find profile / any follows',
+    description: 'Could not find any follows',
   })
   @Get('/follows')
   getFollows(@Param('profileId') profileId: string): void {}
@@ -137,11 +93,8 @@ export class FollowsController {
     type: Follow,
     description: 'Successfully retrieved follower',
   })
-  @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error',
-  })
   @ApiNotFoundResponse({
-    description: 'Could not find profile / follower',
+    description: 'Could not find follower',
   })
   @Get('/followers/:followerProfileId')
   getFollowerById(
@@ -163,11 +116,8 @@ export class FollowsController {
     type: Follow,
     description: 'Successfully retrieved follow',
   })
-  @ApiBadRequestResponse({
-    description: 'Bad Request: Validation error',
-  })
   @ApiNotFoundResponse({
-    description: 'Could not find profile / follow',
+    description: 'Could not find follow',
   })
   @Get('/follows/:followedProfileId')
   getFollowById(
