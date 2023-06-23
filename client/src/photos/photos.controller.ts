@@ -3,6 +3,7 @@ import { PhotosService } from './photos.service';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -19,26 +20,34 @@ import { CreatePhotoDto } from './req-dtos/create-photo.dto';
 export class PhotosController {
   constructor(private readonly photosService: PhotosService) {}
 
-  @ApiOperation({
-    summary: 'This route creates a new photo entity',
-    description:
-      'The photo entity consists of a url property along with some metadata',
-  })
+  @ApiOperation({ summary: 'This route creates a new photo' })
   @ApiCreatedResponse({
     type: Photo,
-    description: 'Successfully created photo entity',
+    description: 'Successfully created photo',
   })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @Post()
   createPhoto(@Body() createPhotoDto: CreatePhotoDto): void {}
 
-  @ApiOperation({ summary: 'This route gets a photo entity by id' })
+  @ApiOperation({ summary: 'This route deletes a photo' })
   @ApiParam({ type: String, name: 'photoId', description: 'Photo id' })
   @ApiOkResponse({
     type: Photo,
-    description: 'Successfully retrieved photo entity',
+    description: 'Successfully removed photo',
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
+  @ApiForbiddenResponse({
+    description: 'Forbidden: Not authorized to perform this action',
+  })
+  @ApiNotFoundResponse({ description: 'Not Found: Could not find photo' })
+  @Delete('/:photoId')
+  removePhoto(@Param('photoId') photoId: string): void {}
+
+  @ApiOperation({ summary: 'This route gets a photo by id' })
+  @ApiParam({ type: String, name: 'photoId', description: 'Photo id' })
+  @ApiOkResponse({
+    type: Photo,
+    description: 'Successfully retrieved photo',
+  })
   @ApiNotFoundResponse({ description: 'Not Found: Could not find photo' })
   @Get('/:photoId')
   getPhotoById(@Param('photoId') photoId: string): void {}

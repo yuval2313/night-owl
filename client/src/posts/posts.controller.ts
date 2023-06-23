@@ -50,7 +50,7 @@ export class PostsController {
   })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({
     description: "Not Found: Could not find profile's post",
@@ -71,9 +71,8 @@ export class PostsController {
     description: 'Post id',
   })
   @ApiOkResponse({ type: PostEntity, description: 'Successfully removed post' })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({
     description: "Not Found: Could not find profile's post",
@@ -93,7 +92,6 @@ export class PostsController {
     type: [PostEntity],
     description: "Successfully retrieved given profile's posts",
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiNotFoundResponse({
     description: "Not Found: Could not find profile's posts",
   })
@@ -117,7 +115,6 @@ export class PostsController {
     type: PostEntity,
     description: "Successfully retrieved given profile's post",
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiNotFoundResponse({
     description: "Not Found: Could not find profile's post",
   })

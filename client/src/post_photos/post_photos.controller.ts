@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { PostPhotosService } from './post_photos.service';
 import {
   ApiBadRequestResponse,
-  ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
@@ -23,8 +22,7 @@ export class PostPhotosController {
 
   @ApiOperation({
     summary: 'This route uploads a post photo',
-    description:
-      'Creates a post_photo entity to relate a post to a photo, post is provided via route parameter',
+    description: 'Creates a post_photo entity to relate a post to a photo',
   })
   @ApiParam({ type: String, name: 'postId', description: 'Post id' })
   @ApiCreatedResponse({
@@ -33,12 +31,9 @@ export class PostPhotosController {
   })
   @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({ description: 'Not Found: Could not find post' })
-  @ApiConflictResponse({
-    description: 'Conflict: Post is already associated with given photo id',
-  })
   @Post()
   uploadPostPhoto(
     @Param('postId') postId: string,
@@ -52,12 +47,11 @@ export class PostPhotosController {
   @ApiParam({ type: String, name: 'postId', description: 'Post id' })
   @ApiParam({ type: String, name: 'photoId', description: 'Photo id' })
   @ApiOkResponse({ type: PostPhoto, description: 'Successfully removed photo' })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
   @ApiForbiddenResponse({
-    description: 'Forbidden: Only owner can perform this action',
+    description: 'Forbidden: Not authorized to perform this action',
   })
   @ApiNotFoundResponse({
-    description: 'Not Found: Could not find post / photo',
+    description: 'Not Found: Could not find post photo',
   })
   @Delete('/:photoId')
   removePostPhoto(
@@ -71,10 +65,7 @@ export class PostPhotosController {
     type: [PostPhoto],
     description: 'Successfully retrieved post photos',
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
-  @ApiNotFoundResponse({
-    description: 'Not Found: Could not find post / photos',
-  })
+  @ApiNotFoundResponse({ description: 'Not Found: Could not find post photos' })
   @Get()
   getPostPhotos(@Param('postId') postId: string): void {}
 
@@ -85,10 +76,7 @@ export class PostPhotosController {
     type: PostPhoto,
     description: 'Successfully retrieved photo',
   })
-  @ApiBadRequestResponse({ description: 'Bad Request: Validation error' })
-  @ApiNotFoundResponse({
-    description: 'Not Found: Could not find post / photo',
-  })
+  @ApiNotFoundResponse({ description: 'Not Found: Could not find post photo' })
   @Get('/:photoId')
   getPostPhotoById(
     @Param('postId') postId: string,
