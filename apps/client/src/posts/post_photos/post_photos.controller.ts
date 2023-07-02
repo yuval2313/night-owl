@@ -12,7 +12,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreatePostPhotoDto } from './req-dtos/create-post-photo.dto';
+<<<<<<< Updated upstream
 import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+=======
+import { CApiBearerAuth } from '@app/shared/decorators/custom-api-bearer-auth.decorator';
+>>>>>>> Stashed changes
 import { PostPhoto } from './models/post_photo.entity';
 
 @ApiTags('post_photos')

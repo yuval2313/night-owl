@@ -22,7 +22,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "typeorm:auth": "npm run build auth && npx typeorm -d ./dist/apps/auth/apps/auth/db/data-source.js",
-    "typeorm:client": "npm run build client && npx typeorm -d ./dist/apps/client/db/data-source.js",
+    "typeorm:client": "npm run build client && npx typeorm -d ./dist/apps/client/apps/client/db/data-source.js",
     "migration:generate:auth": "npm run typeorm:auth -- migration:generate",
     "migration:generate:client": "npm run typeorm:client -- migration:generate",
     "migration:create:auth": "npm run typeorm:auth -- migration:create",

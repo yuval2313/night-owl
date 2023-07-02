@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseEntity } from '../../models/base.entity';
+import { BaseEntity } from '@app/shared/models/base.entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity('profiles')

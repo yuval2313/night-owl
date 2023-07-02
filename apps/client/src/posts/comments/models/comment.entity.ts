@@ -1,7 +1,13 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+<<<<<<< Updated upstream
 import { BaseEntity } from '../../models/base.entity';
 import { Profile } from '../../profiles/models/profile.entity';
 import { Post } from '../../posts/models/post.entity';
+=======
+import { BaseEntity } from '@app/shared/models/base.entity';
+import { Profile } from '../../../profiles/models/profile.entity';
+import { Post } from '../../models/post.entity';
+>>>>>>> Stashed changes
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('comments')

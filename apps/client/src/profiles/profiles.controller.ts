@@ -13,7 +13,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '@app/shared/decorators/custom-api-bearer-auth.decorator';
 import { UpdateProfileDto } from './req-dtos/update-profile.dto';
 
 @ApiTags('profiles')

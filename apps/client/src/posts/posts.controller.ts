@@ -19,7 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { PostsService } from './posts.service';
 import { Post as PostEntity } from './models/post.entity';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '@app/shared/decorators/custom-api-bearer-auth.decorator';
 import { CreatePostDto } from './req-dtos/create-post.dto';
 import { UpdatePostDto } from './req-dtos/update-post.dto';
 

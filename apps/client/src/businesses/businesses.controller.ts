@@ -18,7 +18,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '@app/shared/decorators/custom-api-bearer-auth.decorator';
 import { Business } from './models/business.entity';
 import { CreateBusinessDto } from './req-dtos/create-business.dto';
 import { UpdateBusinessDto } from './req-dtos/update-business.dto';

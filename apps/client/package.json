@@ -5,21 +5,7 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "dependencies": {
-    "@nestjs/config": "^2.3.2",
-    "@nestjs/mapped-types": "*",
-    "@nestjs/swagger": "^6.3.0",
-    "@nestjs/typeorm": "^9.0.1",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.0",
-    "dotenv": "^16.0.3",
-    "nestjs-pino": "^3.2.0",
-    "pg": "^8.11.0",
-    "pino-http": "^8.3.3",
-    "pino-pretty": "^10.0.0",
-    "rxjs": "^7.2.0",
-    "typeorm": "^0.3.16"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "jest": {
     "moduleFileExtensions": [

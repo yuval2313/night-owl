@@ -10,7 +10,11 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+<<<<<<< Updated upstream
 import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+=======
+import { CApiBearerAuth } from '@app/shared/decorators/custom-api-bearer-auth.decorator';
+>>>>>>> Stashed changes
 import { CommentLike } from './models/comment_like.entity';
 
 @ApiTags('comment_likes')

@@ -9,7 +9,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '@app/shared/decorators/custom-api-bearer-auth.decorator';
 import { Photo } from './models/photo.entity';
 import { CreatePhotoDto } from './req-dtos/create-photo.dto';
 

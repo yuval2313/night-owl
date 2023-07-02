@@ -1,6 +1,11 @@
+<<<<<<< Updated upstream
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../models/base.entity';
 import { Profile } from '../../profiles/models/profile.entity';
+=======
+import { Column, Entity } from 'typeorm';
+import { BaseEntity } from '@app/shared/models/base.entity';
+>>>>>>> Stashed changes
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('businesses')

@@ -6,6 +6,12 @@ WORKDIR /app/apps/client
 # Copy application code
 COPY ./apps/client .
 
+# Set working directory to shared library
+WORKDIR /app/libs/shared
+
+# Copy shared library
+COPY ./libs/shared .
+
 # Switch to root directory
 WORKDIR /app
 

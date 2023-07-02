@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Profile } from '../../profiles/models/profile.entity';
-import { BaseEntity } from '../../models/base.entity';
+import { BaseEntity } from '@app/shared/models/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('posts')

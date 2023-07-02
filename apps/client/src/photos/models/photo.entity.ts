@@ -1,5 +1,5 @@
 import { Column, Entity } from 'typeorm';
-import { BaseEntity } from '../../models/base.entity';
+import { BaseEntity } from '@app/shared/models/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('photos')

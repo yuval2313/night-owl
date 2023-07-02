@@ -11,29 +11,16 @@ import { PostPhotosModule } from './post_photos/post_photos.module';
 import { PostLikesModule } from './post_likes/post_likes.module';
 import { CommentLikesModule } from './comment_likes/comment_likes.module';
 import { BusinessesModule } from './businesses/businesses.module';
+<<<<<<< Updated upstream
 import { SkillsModule } from './skills/skills.module';
+=======
+import { RouterModule } from '@nestjs/core';
+import { pinoLoggerConfiguration } from '@app/shared/config/pino-logger/config';
+>>>>>>> Stashed changes
 
 @Module({
   imports: [
-    LoggerModule.forRoot({
-      pinoHttp: {
-        customProps: () => ({
-          context: 'HTTP',
-        }),
-        customLogLevel: (_, res) => {
-          if (res.statusCode >= 400 && res.statusCode < 500) return 'error';
-          if (res.statusCode >= 500 && res.statusCode < 600) return 'fatal';
-        },
-        transport: {
-          target: 'pino-pretty',
-          options: {
-            singleLine: true,
-            colorize: true,
-            levelFirst: true,
-          },
-        },
-      },
-    }),
+    LoggerModule.forRoot(pinoLoggerConfiguration),
     TypeOrmModule.forRoot(dataSourceOptions),
     ProfilesModule,
     FollowsModule,
