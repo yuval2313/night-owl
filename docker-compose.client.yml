@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  client_app:
+    container_name: client_app
+    build:
+      context: .
+      dockerfile: ./apps/client/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - '${PORT_CLIENT_API}:${PORT_CLIENT_API}'
+    volumes:
+      - ./apps/client/db:/app/apps/client/db
+      - ./apps/client/src:/app/apps/client/src
+    depends_on:
+      - client_migrations
+
+  client_migrations:
+    container_name: client_migrations
+    build:
+      context: .
+      dockerfile: ./apps/client/db/Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./apps/client/db:/app/apps/client/db
+    depends_on:
+      - client_db
+
+  client_db:
+    container_name: client_db
+    image: 'postgres:latest'
+    ports:
+      - '${POSTGRES_PORT_CLIENT_API}:${POSTGRES_PORT_CLIENT_API}'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER_CLIENT_API}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_CLIENT_API}
+      POSTGRES_DB: ${POSTGRES_DB_CLIENT_API}
+      PGPORT: ${POSTGRES_PORT_CLIENT_API}

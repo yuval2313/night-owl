@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  auth_app:
+    extends:
+      file: ./docker-compose.auth.yml
+      service: auth_app
+  auth_migrations:
+    extends:
+      file: ./docker-compose.auth.yml
+      service: auth_migrations
+  auth_db:
+    extends:
+      file: ./docker-compose.auth.yml
+      service: auth_db
+  
+  client_app:
+    extends:
+      file: ./docker-compose.client.yml
+      service: client_app
+  client_migrations:
+    extends:
+      file: ./docker-compose.client.yml
+      service: client_migrations
+  client_db:
+    extends:
+      file: ./docker-compose.client.yml
+      service: client_db

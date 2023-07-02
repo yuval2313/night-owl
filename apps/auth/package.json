@@ -1,0 +1,52 @@
+{
+  "name": "auth",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@nestjs/config": "^2.3.1",
+    "@nestjs/jwt": "^10.0.3",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/microservices": "^9.4.0",
+    "@nestjs/passport": "^9.0.3",
+    "@nestjs/swagger": "^6.3.0",
+    "@nestjs/typeorm": "^9.0.1",
+    "@types/jsonwebtoken": "^9.0.2",
+    "argon2": "^0.30.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "dotenv": "^16.0.3",
+    "nestjs-pino": "^3.2.0",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "pg": "^8.10.0",
+    "pino-http": "^8.3.3",
+    "pino-pretty": "^10.0.0",
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.14"
+  },
+  "devDependencies": {
+    "@types/passport-jwt": "^3.0.8",
+    "@types/passport-local": "^1.0.35"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
