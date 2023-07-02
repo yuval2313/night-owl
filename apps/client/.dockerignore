@@ -1,0 +1,11 @@
+# Compiled output
+/dist
+/node_modules
+
+# Setup 
+/scripts
+.env
+*.postman_collection.json
+
+#Other
+README.md

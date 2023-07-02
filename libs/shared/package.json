@@ -1,0 +1,8 @@
+{
+  "name": "shared",
+  "version": "0.0.1",
+  "description": "Shared modules for night-owl monorepo",
+  "main": "index.js",
+  "author": "",
+  "license": "UNLICENSED"
+}
