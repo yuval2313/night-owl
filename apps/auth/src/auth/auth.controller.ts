@@ -23,7 +23,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { LoginDto } from './req-dtos/login.dto';
-import { CApiBearerAuth } from '../decorators/custom-api-bearer-auth.decorator';
+import { CApiBearerAuth } from '@app/shared/decorators/custom-api-bearer-auth.decorator';
 
 @ApiTags('auth')
 @Controller('auth')

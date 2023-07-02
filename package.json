@@ -7,7 +7,8 @@
   "license": "UNLICENSED",
   "workspaces": [
     "apps/auth",
-    "apps/client"
+    "apps/client",
+    "libs/shared"
   ],
   "scripts": {
     "build": "nest build",
@@ -20,7 +21,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "typeorm:auth": "npm run build auth && npx typeorm -d ./dist/apps/auth/db/data-source.js",
+    "typeorm:auth": "npm run build auth && npx typeorm -d ./dist/apps/auth/apps/auth/db/data-source.js",
     "typeorm:client": "npm run build client && npx typeorm -d ./dist/apps/client/db/data-source.js",
     "migration:generate:auth": "npm run typeorm:auth -- migration:generate",
     "migration:generate:client": "npm run typeorm:client -- migration:generate",
@@ -33,10 +34,22 @@
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/mapped-types": "^2.0.2",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^7.0.12",
+    "@nestjs/typeorm": "^10.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "dotenv": "^16.3.1",
+    "nestjs-pino": "^3.3.0",
+    "pg": "^8.11.1",
+    "pino-http": "^8.3.3",
+    "pino-pretty": "^10.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -82,7 +95,7 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@night-owl/shared_modules(|/.*)$": "<rootDir>/libs/shared_modules/src/$1"
+      "^@app/shared(|/.*)$": "<rootDir>/libs/shared/src/$1"
     }
   }
 }

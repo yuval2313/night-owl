@@ -10,12 +10,12 @@
   },
   "monorepo": true,
   "root": "apps/auth",
-  "entryFile": "src/main",
+  "entryFile": "apps/auth/src/main",
   "projects": {
     "auth": {
       "type": "application",
       "root": "apps/auth",
-      "entryFile": "src/main",
+      "entryFile": "apps/auth/src/main",
       "sourceRoot": "apps/auth/src",
       "compilerOptions": {
         "tsConfigPath": "apps/auth/tsconfig.app.json"

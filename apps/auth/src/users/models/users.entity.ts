@@ -1,4 +1,4 @@
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from '@app/shared/models/base.entity';
 import { Column, Entity, BeforeInsert } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { hash, verify } from 'argon2';

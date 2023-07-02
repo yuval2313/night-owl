@@ -6,9 +6,9 @@ import { Repository } from 'typeorm';
 import { User } from './models/users.entity';
 import { PostgresErrorCode } from '../../db/constraints/errors.constraint';
 import { TokenResponseDto } from '../auth/res-dtos/token-response.dto';
-import { CConflictException } from '../errors/conflict.error';
-import { CNotFoundException } from '../errors/not-found.error';
-import { CForbiddenException } from '../errors/forbidden.error';
+import { CConflictException } from '@app/shared/errors/conflict.error';
+import { CNotFoundException } from '@app/shared/errors/not-found.error';
+import { CForbiddenException } from '@app/shared/errors/forbidden.error';
 
 @Injectable()
 export class UsersService {

@@ -8,7 +8,7 @@ import { TokenPayload } from './interfaces/token-payload.interface';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 import { ConfigService } from '@nestjs/config';
 import { TokenTypes } from './interfaces/token-types.enum';
-import { CUnauthorizedException } from '../errors/unauthorized.error';
+import { CUnauthorizedException } from '@app/shared/errors/unauthorized.error';
 
 const configService = new ConfigService();
 const accessTokenSecret = configService.get('JWT_ACCESS_SECRET');

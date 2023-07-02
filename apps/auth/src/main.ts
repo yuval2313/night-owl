@@ -6,7 +6,7 @@ import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
 import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { HttpExceptionFilter } from '@app/shared/filters/http-exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const configService = new ConfigService();
